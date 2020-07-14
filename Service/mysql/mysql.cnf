@@ -5,13 +5,13 @@ default-character-set   = utf8mb4
 [mysqld]
 user                    = root
 port                    = 3306
-sql_mode                = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+sql_mode                = NO_ENGINE_SUBSTITUTION
 
-default-storage-engine  = InnoDB
+default-storage-engine          = InnoDB
 default-authentication-plugin   = mysql_native_password
-character-set-server    = utf8mb4
-collation-server        = utf8mb4_unicode_ci
-init_connect            = 'SET NAMES utf8mb4'
+character-set-server            = utf8mb4
+collation-server                = utf8mb4_unicode_ci
+init_connect                    = 'SET NAMES utf8mb4'
 
 disable-log-bin
 skip-character-set-client-handshake

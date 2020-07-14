@@ -1,1 +1,1 @@
-This is MySql runtime info.
+This is MySql data.

@@ -1,0 +1,1 @@
+2020/07/14 10:24:50 [error] 19#19: *2 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.27.0.1, server: www.example.com, request: "GET /shengong-api/www/bearjoy/local/adjust.php?do=newUser HTTP/1.1", upstream: "fastcgi://172.27.0.5:9000", host: "10.128.0.128"

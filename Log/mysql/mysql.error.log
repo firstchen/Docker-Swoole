@@ -1,25 +1,25 @@
-2020-07-10 16:09:40 1 [Note] Plugin 'FEDERATED' is disabled.
-2020-07-10 16:09:40 1 [Note] InnoDB: Using atomics to ref count buffer pool pages
-2020-07-10 16:09:40 1 [Note] InnoDB: The InnoDB memory heap is disabled
-2020-07-10 16:09:40 1 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
-2020-07-10 16:09:40 1 [Note] InnoDB: Memory barrier is not used
-2020-07-10 16:09:40 1 [Note] InnoDB: Compressed tables use zlib 1.2.11
-2020-07-10 16:09:40 1 [Note] InnoDB: Using Linux native AIO
-2020-07-10 16:09:40 1 [Note] InnoDB: Using CPU crc32 instructions
-2020-07-10 16:09:40 1 [Note] InnoDB: Initializing buffer pool, size = 128.0M
-2020-07-10 16:09:40 1 [Note] InnoDB: Completed initialization of buffer pool
-2020-07-10 16:09:41 1 [Note] InnoDB: Highest supported file format is Barracuda.
-2020-07-10 16:09:41 1 [Note] InnoDB: 128 rollback segment(s) are active.
-2020-07-10 16:09:41 1 [Note] InnoDB: Waiting for purge to start
-2020-07-10 16:09:41 1 [Note] InnoDB: 5.6.48 started; log sequence number 1626017
-2020-07-10 16:09:41 1 [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
-2020-07-10 16:09:41 1 [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
-2020-07-10 16:09:41 1 [Note] Server hostname (bind-address): '*'; port: 3306
-2020-07-10 16:09:41 1 [Note] IPv6 is available.
-2020-07-10 16:09:41 1 [Note]   - '::' resolves to '::';
-2020-07-10 16:09:41 1 [Note] Server socket created on IP: '::'.
-2020-07-10 16:09:41 1 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
-2020-07-10 16:09:41 1 [Warning] 'proxies_priv' entry '@ root@1752c1304594' ignored in --skip-name-resolve mode.
-2020-07-10 16:09:41 1 [Note] Event Scheduler: Loaded 0 events
-2020-07-10 16:09:41 1 [Note] mysqld: ready for connections.
+2020-07-14 10:14:03 1 [Note] Plugin 'FEDERATED' is disabled.
+2020-07-14 10:14:03 1 [Note] InnoDB: Using atomics to ref count buffer pool pages
+2020-07-14 10:14:03 1 [Note] InnoDB: The InnoDB memory heap is disabled
+2020-07-14 10:14:03 1 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2020-07-14 10:14:03 1 [Note] InnoDB: Memory barrier is not used
+2020-07-14 10:14:03 1 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-07-14 10:14:03 1 [Note] InnoDB: Using Linux native AIO
+2020-07-14 10:14:03 1 [Note] InnoDB: Using CPU crc32 instructions
+2020-07-14 10:14:03 1 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2020-07-14 10:14:03 1 [Note] InnoDB: Completed initialization of buffer pool
+2020-07-14 10:14:03 1 [Note] InnoDB: Highest supported file format is Barracuda.
+2020-07-14 10:14:03 1 [Note] InnoDB: 128 rollback segment(s) are active.
+2020-07-14 10:14:03 1 [Note] InnoDB: Waiting for purge to start
+2020-07-14 10:14:03 1 [Note] InnoDB: 5.6.48 started; log sequence number 1625997
+2020-07-14 10:14:03 1 [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
+2020-07-14 10:14:03 1 [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
+2020-07-14 10:14:03 1 [Note] Server hostname (bind-address): '*'; port: 3306
+2020-07-14 10:14:03 1 [Note] IPv6 is available.
+2020-07-14 10:14:03 1 [Note]   - '::' resolves to '::';
+2020-07-14 10:14:03 1 [Note] Server socket created on IP: '::'.
+2020-07-14 10:14:03 1 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2020-07-14 10:14:03 1 [Warning] 'proxies_priv' entry '@ root@8731fe2fccc7' ignored in --skip-name-resolve mode.
+2020-07-14 10:14:03 1 [Note] Event Scheduler: Loaded 0 events
+2020-07-14 10:14:03 1 [Note] mysqld: ready for connections.
 Version: '5.6.48-log'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
