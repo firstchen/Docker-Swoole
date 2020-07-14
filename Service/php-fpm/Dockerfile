@@ -20,4 +20,3 @@ RUN wget http://pecl.php.net/get/swoole-${PHPSWOOLE_VERSION}.tgz -O /tmp/swoole.
     && pecl install /tmp/swoole.tar.tgz \
     && rm -rf /tmp/swoole.tar.tgz \
     && docker-php-ext-enable swoole
-
