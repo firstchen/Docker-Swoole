@@ -39,7 +39,7 @@ services:
     cap_add:
       - SYS_PTRACE
     environment:
-      TZ: "{$TZ}"
+      TZ: "${TZ}"
     networks:
       - host
 
@@ -55,7 +55,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
-      TZ: "{$TZ}"
+      TZ: "${TZ}"
     networks:
       - host
 
@@ -70,7 +70,7 @@ services:
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: root
-        TZ: "${TZ}"
+      TZ: "${TZ}"
     networks:
       - host
 
