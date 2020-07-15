@@ -1,4 +1,7 @@
+.env
 .idea
 .DS_Store
 Log
+Web
 Data
+Service
