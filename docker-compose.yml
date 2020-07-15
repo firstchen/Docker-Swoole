@@ -80,7 +80,7 @@ services:
       - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
       - ${DATA_DIR}/redis:/data/:rw
     restart: always
-    entrypoint: ["./redis_optimize.sh"]
+    entrypoint: ["redis-server", "/etc/redis.conf"]
     environment:
       TZ: "$TZ"
     networks:
