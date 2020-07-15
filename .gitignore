@@ -1,7 +1,6 @@
-.env
 .idea
 .DS_Store
 Log
 Web
 Data
-Service
+Service/nginx/conf.d
