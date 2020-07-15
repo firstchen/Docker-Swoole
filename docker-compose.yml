@@ -57,11 +57,11 @@ services:
     networks:
       - host
 
-  myAdmin:
+  pma:
     depends_on:
       - mysql
     image: phpmyadmin/${MyAdmin_VERSION}
-    container_name: myAdmin
+    container_name: pma
     restart: always
     ports:
       - "${MyAdmin_HOST_PORT}:80"
