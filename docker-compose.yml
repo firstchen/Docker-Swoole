@@ -29,6 +29,7 @@ services:
     container_name: php-fpm
     ports:
       - "${Swoole_HOST_PORT}:9248"
+      - "${Swoole_Center_HOST_PORT}:9249"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
