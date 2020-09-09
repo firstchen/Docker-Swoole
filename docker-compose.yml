@@ -34,7 +34,7 @@ services:
       - ${SOURCE_DIR}:/www/:rw
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
-      - ${PHP_LOG_DIR}:/var/log/php
+      - ${PHP_LOG_DIR}:/var/log/php:rw
       - ${DATA_DIR}/composer:/tmp/composer
     restart: always
     cap_add:
