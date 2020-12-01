@@ -5,7 +5,8 @@ FROM ${PHP_VERSION}
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk update \
     && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev \
-        && docker-php-ext-install -j$(nproc) mysqli
+        && docker-php-ext-install -j$(nproc) mysqli \
+            && docker-php-ext-install -j$(nproc) pdo_mysql
 
 # Extensions
 ARG PHPREDIS_VERSION=4.1.0
