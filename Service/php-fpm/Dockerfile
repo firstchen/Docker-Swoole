@@ -4,7 +4,7 @@ FROM ${PHP_VERSION}
 # Init
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk update \
-    && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev \
+    && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev vim \
         && docker-php-ext-install -j$(nproc) mysqli \
             && docker-php-ext-install -j$(nproc) pdo_mysql
 
