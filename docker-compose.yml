@@ -30,7 +30,8 @@ services:
     container_name: php-fpm
     ports:
       - "${Swoole_HOST_PORT}:9248"
-      - "${Swoole_Center_HOST_PORT}:9249"
+      - "${Swoole_CENTER_HOST_PORT}:9249"
+      - "${Swoole_REDIRECT_HOST_PORT}:8702"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
@@ -85,7 +86,7 @@ services:
       - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
       - ${DATA_DIR}/redis:/data/:rw
     restart: always
-    entrypoint: ["redis-server", "/etc/redis.conf"]
+    entrypoint: [ "redis-server", "/etc/redis.conf" ]
     environment:
       TZ: "${TZ}"
     networks:
