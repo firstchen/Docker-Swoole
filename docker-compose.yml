@@ -22,7 +22,7 @@ services:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: 172.19.0.2
+        ipv4_address: "${IP_NGINX}"
 
   php-fpm:
     build:
@@ -47,7 +47,7 @@ services:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: 172.19.0.3
+        ipv4_address: "${IP_FPM}"
 
   mysql:
     image: mysql:${MYSQL_VERSION}
@@ -64,7 +64,7 @@ services:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: 172.19.0.4
+        ipv4_address: "${IP_MySQL}"
 
   pma:
     depends_on:
@@ -80,7 +80,7 @@ services:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: 172.19.0.5
+        ipv4_address: "${IP_PMA}"
 
   redis:
     image: redis:${REDIS_VERSION}-alpine
@@ -96,11 +96,11 @@ services:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: 172.19.0.6
+        ipv4_address: "${IP_REDIS}"
 
 networks:
   customize:
     ipam:
       config:
-        - subnet: 172.19.0.0/24
-          gateway: 172.19.0.1
+        - subnet: "${IP_SUBNET}"
+          gateway: "${IP_GATEWAY}"
