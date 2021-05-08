@@ -4,10 +4,10 @@ services:
     image: nginx:${NGINX_VERSION}-alpine
     container_name: nginx
     ports:
-      - "${NGINX_HTTP_HOST_PORT}:80"
-      - "${NGINX_HTTPS_HOST_PORT}:443"
-      - "8888:8888"
-      - "8889:8889"
+      - "${NGINX_HTTP_HOST_PORT}:${NGINX_HTTP_HOST_PORT}"
+      - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_HOST_PORT}
+      - "${NGINX_WEB_HOST_PORT}:${NGINX_WEB_HOST_PORT}"
+      - "${NGINX_EXPOSE_HOST_PORT}:${NGINX_EXPOSE_HOST_PORT}"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
@@ -21,7 +21,8 @@ services:
     environment:
       TZ: "${TZ}"
     networks:
-      - host
+      customize:
+        ipv4_address: 172.19.0.2
 
   php-fpm:
     build:
@@ -30,9 +31,9 @@ services:
         PHP_VERSION: php:${PHP_VERSION}-fpm-alpine
     container_name: php-fpm
     ports:
-      - "${Swoole_HOST_PORT}:9248"
-      - "${Swoole_CENTER_HOST_PORT}:9249"
-      - "${Swoole_REDIRECT_HOST_PORT}:8702"
+      - "${Swoole_HOST_PORT}:${Swoole_HOST_PORT}"
+      - "${Swoole_CENTER_HOST_PORT}:${Swoole_CENTER_HOST_PORT}"
+      - "${Swoole_REDIRECT_HOST_PORT}:${Swoole_REDIRECT_HOST_PORT}"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
@@ -45,13 +46,14 @@ services:
     environment:
       TZ: "${TZ}"
     networks:
-      - host
+      customize:
+        ipv4_address: 172.19.0.3
 
   mysql:
     image: mysql:${MYSQL_VERSION}
     container_name: mysql
     ports:
-      - "${MYSQL_HOST_PORT}:3306"
+      - "${MYSQL_HOST_PORT}:${MYSQL_HOST_PORT}"
     volumes:
       - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
       - ${DATA_DIR}/mysql:/var/lib/mysql/:rw
@@ -61,7 +63,8 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: "${TZ}"
     networks:
-      - host
+      customize:
+        ipv4_address: 172.19.0.4
 
   pma:
     depends_on:
@@ -70,19 +73,20 @@ services:
     container_name: pma
     restart: always
     ports:
-      - "${PMA_HOST_PORT}:80"
+      - "${PMA_HOST_PORT}:${NGINX_HTTP_HOST_PORT}"
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: root
       TZ: "${TZ}"
     networks:
-      - host
+      customize:
+        ipv4_address: 172.19.0.5
 
   redis:
     image: redis:${REDIS_VERSION}-alpine
     container_name: redis
     ports:
-      - "${REDIS_HOST_PORT}:6379"
+      - "${REDIS_HOST_PORT}:${REDIS_HOST_PORT}"
     volumes:
       - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
       - ${DATA_DIR}/redis:/data/:rw
@@ -91,7 +95,12 @@ services:
     environment:
       TZ: "${TZ}"
     networks:
-      - host
+      customize:
+        ipv4_address: 172.19.0.6
 
 networks:
-  host:
+  customize:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
+          gateway: 172.19.0.1
