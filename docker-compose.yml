@@ -5,7 +5,7 @@ services:
     container_name: nginx
     ports:
       - "${NGINX_HTTP_HOST_PORT}:${NGINX_HTTP_HOST_PORT}"
-      - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_HOST_PORT}
+      - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_HOST_PORT}"
       - "${NGINX_WEB_HOST_PORT}:${NGINX_WEB_HOST_PORT}"
       - "${NGINX_EXPOSE_HOST_PORT}:${NGINX_EXPOSE_HOST_PORT}"
     volumes:
