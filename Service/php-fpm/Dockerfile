@@ -18,4 +18,8 @@ RUN pecl install redis-${PHPREDIS_VERSION}.tgz \
     && docker-php-ext-enable redis swoole \
     && rm -rf /tmp/extensions
 
+# Other
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions xhprof
+
 WORKDIR /www
