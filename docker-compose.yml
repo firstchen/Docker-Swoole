@@ -82,21 +82,37 @@ services:
       customize:
         ipv4_address: "${IP_PMA}"
 
-  redis:
+  game-redis:
     image: redis:${REDIS_VERSION}-alpine
-    container_name: redis
+    container_name: game-redis
     ports:
-      - "${REDIS_HOST_PORT}:${REDIS_HOST_PORT}"
+      - "${GAME_REDIS_HOST_PORT}:${GAME_REDIS_HOST_PORT}"
     volumes:
-      - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
-      - ${DATA_DIR}/redis:/data/:rw
+      - ${GAME_REDIS_CONF_FILE}:/etc/game_redis.conf:ro
+      - ${DATA_DIR}/redis/game:/data/:rw
     restart: always
-    entrypoint: [ "redis-server", "/etc/redis.conf" ]
+    entrypoint: [ "redis-server", "/etc/game_redis.conf" ]
     environment:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: "${IP_REDIS}"
+        ipv4_address: "${IP_GAME_REDIS}"
+
+  mix-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: mix-redis
+    ports:
+      - "${MIX_CENTER_REDIS_HOST_PORT}:${MIX_CENTER_REDIS_HOST_PORT}"
+    volumes:
+      - ${MIX_CENTER_REDIS_CONF_FILE}:/etc/mix_center_redis.conf:ro
+      - ${DATA_DIR}/redis/mix:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/mix_center_redis.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_MIX_REDIS}"
 
 networks:
   customize:
