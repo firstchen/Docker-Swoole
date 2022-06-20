@@ -10,7 +10,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # Extensions
 ARG PHPREDIS_VERSION=4.1.0
-ARG PHPSWOOLE_VERSION=4.4.2
+ARG PHPSWOOLE_VERSION=4.8.9
 COPY ./extensions /tmp/extensions
 WORKDIR /tmp/extensions
 RUN pecl install redis-${PHPREDIS_VERSION}.tgz \
