@@ -8,6 +8,7 @@ services:
       - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_HOST_PORT}"
       - "${NGINX_WEB_HOST_PORT}:${NGINX_WEB_HOST_PORT}"
       - "${NGINX_EXPOSE_HOST_PORT}:${NGINX_EXPOSE_HOST_PORT}"
+      - "${NGINX_EGGNOG_HOST_PORT}:${NGINX_EGGNOG_HOST_PORT}"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
@@ -113,6 +114,22 @@ services:
     networks:
       customize:
         ipv4_address: "${IP_MIX_REDIS}"
+
+  eggnog-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: eggnog-redis
+    ports:
+      - "${EGGNOG_REDIS_HOST_PORT}:${EGGNOG_REDIS_HOST_PORT}"
+    volumes:
+      - ${EGGNOG_REDIS_CONF_FILE}:/etc/eggnog_redis.conf:ro
+      - ${DATA_DIR}/redis/eggnog:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/eggnog_redis.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_EGGNOG_REDIS}"
 
 networks:
   customize:
