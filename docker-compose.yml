@@ -9,6 +9,7 @@ services:
       - "${NGINX_WEB_HOST_PORT}:${NGINX_WEB_HOST_PORT}"
       - "${NGINX_EXPOSE_HOST_PORT}:${NGINX_EXPOSE_HOST_PORT}"
       - "${NGINX_EGGNOG_HOST_PORT}:${NGINX_EGGNOG_HOST_PORT}"
+      - "${NGINX_TREASURE_HERO_HOST_PORT}:${NGINX_TREASURE_HERO_HOST_PORT}"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
