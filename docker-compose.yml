@@ -7,9 +7,9 @@ services:
       - "${NGINX_HTTP_HOST_PORT}:${NGINX_HTTP_HOST_PORT}"
       - "${NGINX_HTTPS_HOST_PORT}:${NGINX_HTTPS_HOST_PORT}"
       - "${NGINX_WEB_HOST_PORT}:${NGINX_WEB_HOST_PORT}"
-      - "${NGINX_EXPOSE_HOST_PORT}:${NGINX_EXPOSE_HOST_PORT}"
-      - "${NGINX_EGGNOG_HOST_PORT}:${NGINX_EGGNOG_HOST_PORT}"
-      - "${NGINX_TREASURE_HERO_HOST_PORT}:${NGINX_TREASURE_HERO_HOST_PORT}"
+      - "${NGINX_SINGLETON_HOST_PORT}:${NGINX_SINGLETON_HOST_PORT}"
+      - "${NGINX_EGGONG_HOST_PORT}:${NGINX_EGGONG_HOST_PORT}"
+      - "${NGINX_TREASUREHERO_HOST_PORT}:${NGINX_TREASUREHERO_HOST_PORT}"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
@@ -33,9 +33,14 @@ services:
         PHP_VERSION: php:${PHP_VERSION}-fpm-alpine
     container_name: php-fpm
     ports:
-      - "${Swoole_HOST_PORT}:${Swoole_HOST_PORT}"
-      - "${Swoole_CENTER_HOST_PORT}:${Swoole_CENTER_HOST_PORT}"
-      - "${Swoole_REDIRECT_HOST_PORT}:${Swoole_REDIRECT_HOST_PORT}"
+      - "${SWOOLE_SHENGONG_NOTICE_HOST_PORT}:${SWOOLE_SHENGONG_NOTICE_HOST_PORT}"
+      - "${SWOOLE_SHENGONG_CENTER_HOST_PORT}:${SWOOLE_SHENGONG_CENTER_HOST_PORT}"
+      - "${SWOOLE_SHENGONG_MIX_CENTER_HOST_PORT}:${SWOOLE_SHENGONG_MIX_CENTER_HOST_PORT}"
+      - "${SWOOLE_SHENGONG_GATE_HOST_PORT}:${SWOOLE_SHENGONG_GATE_HOST_PORT}"
+      - "${SWOOLE_EGGONG_NOTICE_HOST_PORT}:${SWOOLE_EGGONG_NOTICE_HOST_PORT}"
+      - "${SWOOLE_EGGONG_CENTER_HOST_PORT}:${SWOOLE_EGGONG_CENTER_HOST_PORT}"
+      - "${SWOOLE_TREASUREHERO_NOTICE_HOST_PORT}:${SWOOLE_TREASUREHERO_NOTICE_HOST_PORT}"
+      - "${SWOOLE_TREASUREHERO_CENTER_HOST_PORT}:${SWOOLE_TREASUREHERO_CENTER_HOST_PORT}"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
@@ -84,53 +89,181 @@ services:
       customize:
         ipv4_address: "${IP_PMA}"
 
-  game-redis:
+  shengong-center-redis:
     image: redis:${REDIS_VERSION}-alpine
-    container_name: game-redis
+    container_name: shengong-center-redis
     ports:
-      - "${GAME_REDIS_HOST_PORT}:${GAME_REDIS_HOST_PORT}"
+      - "${SHENGONG_CENTER_REDIS_HOST_PORT}:${SHENGONG_CENTER_REDIS_HOST_PORT}"
     volumes:
-      - ${GAME_REDIS_CONF_FILE}:/etc/game_redis.conf:ro
-      - ${DATA_DIR}/redis/game:/data/:rw
+      - ${SHENGONG_CENTER_REDIS_CONF_FILE}:/etc/shengong_center.conf:ro
+      - ${DATA_DIR}/redis/shengong_center:/data/:rw
     restart: always
-    entrypoint: [ "redis-server", "/etc/game_redis.conf" ]
+    entrypoint: [ "redis-server", "/etc/shengong_center.conf" ]
     environment:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: "${IP_GAME_REDIS}"
+        ipv4_address: "${IP_SHENGONG_CENTER_REDIS}"
 
-  mix-redis:
+  shengong-user-redis:
     image: redis:${REDIS_VERSION}-alpine
-    container_name: mix-redis
+    container_name: shengong-user-redis
     ports:
-      - "${MIX_CENTER_REDIS_HOST_PORT}:${MIX_CENTER_REDIS_HOST_PORT}"
+      - "${SHENGONG_USER_REDIS_HOST_PORT}:${SHENGONG_USER_REDIS_HOST_PORT}"
     volumes:
-      - ${MIX_CENTER_REDIS_CONF_FILE}:/etc/mix_center_redis.conf:ro
-      - ${DATA_DIR}/redis/mix:/data/:rw
+      - ${SHENGONG_USER_REDIS_CONF_FILE}:/etc/shengong_user.conf:ro
+      - ${DATA_DIR}/redis/shengong_user:/data/:rw
     restart: always
-    entrypoint: [ "redis-server", "/etc/mix_center_redis.conf" ]
+    entrypoint: [ "redis-server", "/etc/shengong_user.conf" ]
     environment:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: "${IP_MIX_REDIS}"
+        ipv4_address: "${IP_SHENGONG_USER_REDIS}"
 
-  eggnog-redis:
+  shengong-s1-redis:
     image: redis:${REDIS_VERSION}-alpine
-    container_name: eggnog-redis
+    container_name: shengong-s1-redis
     ports:
-      - "${EGGNOG_REDIS_HOST_PORT}:${EGGNOG_REDIS_HOST_PORT}"
+      - "${SHENGONG_SERVER_1_REDIS_HOST_PORT}:${SHENGONG_SERVER_1_REDIS_HOST_PORT}"
     volumes:
-      - ${EGGNOG_REDIS_CONF_FILE}:/etc/eggnog_redis.conf:ro
-      - ${DATA_DIR}/redis/eggnog:/data/:rw
+      - ${SHENGONG_SERVER_1_REDIS_CONF_FILE}:/etc/shengong_s1.conf:ro
+      - ${DATA_DIR}/redis/shengong_s1:/data/:rw
     restart: always
-    entrypoint: [ "redis-server", "/etc/eggnog_redis.conf" ]
+    entrypoint: [ "redis-server", "/etc/shengong_s1.conf" ]
     environment:
       TZ: "${TZ}"
     networks:
       customize:
-        ipv4_address: "${IP_EGGNOG_REDIS}"
+        ipv4_address: "${IP_SHENGONG_SERVER_1_REDIS}"
+
+  shengong-mix-center-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: shengong-mix-center-redis
+    ports:
+      - "${SHENGONG_MIX_CENTER_REDIS_HOST_PORT}:${SHENGONG_MIX_CENTER_REDIS_HOST_PORT}"
+    volumes:
+      - ${SHENGONG_MIX_CENTER_REDIS_CONF_FILE}:/etc/shengong_mix_center.conf:ro
+      - ${DATA_DIR}/redis/shengong_mix_center:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/shengong_mix_center.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_SHENGONG_MIX_CENTER_REDIS}"
+
+  shengong-gate-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: shengong-gate-redis
+    ports:
+      - "${SHENGONG_GATE_REDIS_HOST_PORT}:${SHENGONG_GATE_REDIS_HOST_PORT}"
+    volumes:
+      - ${SHENGONG_GATE_REDIS_CONF_FILE}:/etc/shengong_gate.conf:ro
+      - ${DATA_DIR}/redis/shengong_gate:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/shengong_gate.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_SHENGONG_GATE_REDIS}"
+
+  eggong-center-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: eggong-center-redis
+    ports:
+      - "${EGGONG_CENTER_REDIS_HOST_PORT}:${EGGONG_CENTER_REDIS_HOST_PORT}"
+    volumes:
+      - ${EGGONG_CENTER_REDIS_CONF_FILE}:/etc/eggong_center.conf:ro
+      - ${DATA_DIR}/redis/eggong_center:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/eggong_center.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_EGGONG_CENTER_REDIS}"
+
+  eggong-user-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: eggong-user-redis
+    ports:
+      - "${EGGONG_USER_REDIS_HOST_PORT}:${EGGONG_USER_REDIS_HOST_PORT}"
+    volumes:
+      - ${EGGONG_USER_REDIS_CONF_FILE}:/etc/eggong_user.conf:ro
+      - ${DATA_DIR}/redis/eggong_user:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/eggong_user.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_EGGONG_USER_REDIS}"
+
+  eggong-s1-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: eggong-s1-redis
+    ports:
+      - "${EGGONG_SERVER_1_REDIS_HOST_PORT}:${EGGONG_SERVER_1_REDIS_HOST_PORT}"
+    volumes:
+      - ${EGGONG_SERVER_1_REDIS_CONF_FILE}:/etc/eggong_s1.conf:ro
+      - ${DATA_DIR}/redis/eggong_s1:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/eggong_s1.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_EGGONG_SERVER_1_REDIS}"
+
+  treasurehero-center-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: treasurehero-center-redis
+    ports:
+      - "${TREASUREHERO_CENTER_REDIS_HOST_PORT}:${TREASUREHERO_CENTER_REDIS_HOST_PORT}"
+    volumes:
+      - ${TREASUREHERO_CENTER_REDIS_CONF_FILE}:/etc/treasurehero_center.conf:ro
+      - ${DATA_DIR}/redis/treasurehero_center:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/treasurehero_center.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_TREASUREHERO_CENTER_REDIS}"
+
+  treasurehero-user-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: treasurehero-user-redis
+    ports:
+      - "${TREASUREHERO_USER_REDIS_HOST_PORT}:${TREASUREHERO_USER_REDIS_HOST_PORT}"
+    volumes:
+      - ${TREASUREHERO_USER_REDIS_CONF_FILE}:/etc/treasurehero_user.conf:ro
+      - ${DATA_DIR}/redis/treasurehero_user:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/treasurehero_user.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_TREASUREHERO_USER_REDIS}"
+
+  treasurehero-s1-redis:
+    image: redis:${REDIS_VERSION}-alpine
+    container_name: treasurehero-s1-redis
+    ports:
+      - "${TREASUREHERO_SERVER_1_REDIS_HOST_PORT}:${TREASUREHERO_SERVER_1_REDIS_HOST_PORT}"
+    volumes:
+      - ${TREASUREHERO_SERVER_1_REDIS_CONF_FILE}:/etc/treasurehero_s1.conf:ro
+      - ${DATA_DIR}/redis/treasurehero_s1:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/treasurehero_s1.conf" ]
+    environment:
+      TZ: "${TZ}"
+    networks:
+      customize:
+        ipv4_address: "${IP_TREASUREHERO_SERVER_1_REDIS}"
 
 networks:
   customize:
