@@ -1,10 +1,12 @@
 ARG PHP_VERSION
 FROM ${PHP_VERSION}
 
-# Extensions
+# Extensions Version Define
 ARG PHPREDIS_VERSION=4.1.0
 ARG PHPSWOOLE_VERSION=4.8.9
 ARG PHPPROTOBUF_VERSION=0.12.3
+
+# Work Dir
 COPY ./extensions /tmp/extensions
 WORKDIR /tmp/extensions
 
@@ -35,4 +37,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && rm /bin/sh  \
     && ln -s /bin/bash /bin/sh
 
+# 设置Env PS1
+ENV PS1='[\u@\h \W] '
+
+# Work Dir
 WORKDIR /www
