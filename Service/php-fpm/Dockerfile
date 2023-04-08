@@ -17,13 +17,13 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 # sh需要指向Bash以支持更多特性，很多Docker官方镜像使用的sh指向Dash
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk update \
-    && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev vim strace bash zip \
+    && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev vim strace bash \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) pcntl \
     && pecl install redis-${PHPREDIS_VERSION}.tgz \
     && pecl install swoole-${PHPSWOOLE_VERSION}.tgz \
-    && unzip php-protobuf-${PHPPROTOBUF_VERSION}.zip \
+    && tar -zxvf php-protobuf-${PHPPROTOBUF_VERSION}.tar.gz \
     && ( \
         cd php-protobuf-${PHPPROTOBUF_VERSION} \
         && phpize \
