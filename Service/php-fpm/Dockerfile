@@ -17,7 +17,7 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 # sh需要指向Bash以支持更多特性，很多Docker官方镜像使用的sh指向Dash
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk update \
-    && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev vim strace bash \
+    && apk add --no-cache autoconf g++ libtool make curl-dev gettext-dev vim strace bash sudo \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) pcntl \
@@ -35,7 +35,11 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && install-php-extensions xhprof \
     && rm -rf /tmp/extensions \
     && rm /bin/sh  \
-    && ln -s /bin/bash /bin/sh
+    && ln -s /bin/bash /bin/sh \
+    && ln -s /usr/local/bin/php /usr/bin/php \
+    && adduser --disabled-password --gecos '' www \
+    && adduser www sudo \
+    && echo 'www ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/www \
 
 # 设置Env PS1
 ENV PS1='[\u@\h \W] '
