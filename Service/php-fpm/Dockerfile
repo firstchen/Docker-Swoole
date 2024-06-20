@@ -38,7 +38,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && ln -s /bin/bash /bin/sh \
     && ln -s /usr/local/bin/php /usr/bin/php \
     && adduser --disabled-password --gecos '' www \
-    && adduser www sudo \
+    && adduser www wheel \
     && echo 'www ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/www
 
 # 设置Env PS1
