@@ -1,5 +1,5 @@
-ARG PHP_VERSION
-FROM ${PHP_VERSION}
+ARG PHP_VERSION=7.4
+FROM php:${PHP_VERSION}-fpm-alpine
 
 # Extensions Version Define
 ARG PHPREDIS_VERSION=4.1.0

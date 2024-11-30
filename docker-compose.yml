@@ -1,4 +1,3 @@
-version: "3"
 services:
   nginx:
     image: nginx:${NGINX_VERSION}-alpine
@@ -30,7 +29,7 @@ services:
     build:
       context: ./Service/php-fpm
       args:
-        PHP_VERSION: php:${PHP_VERSION}-fpm-alpine
+        PHP_VERSION: ${PHP_VERSION}
     container_name: php-fpm
     ports:
       - "${SWOOLE_SHENGONG_NOTICE_HOST_PORT}:${SWOOLE_SHENGONG_NOTICE_HOST_PORT}"
